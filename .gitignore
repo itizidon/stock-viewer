@@ -2,6 +2,9 @@
 logs
 *.log
 
+#secrets.js
+secrets.js
+
 # Runtime data
 pids
 *.pid

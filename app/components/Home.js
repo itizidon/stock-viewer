@@ -11,9 +11,16 @@ export default class Home extends Component<Props> {
 
   render() {
     return (
-      <div className={styles.container} data-tid="container">
-        <h2>Home</h2>
-        <Link to={routes.COUNTER}>to Counter</Link>
+      <div>
+        <div className={styles.container} data-tid="container">
+          <h2>Home</h2>
+          <div>
+            <Link to={routes.COUNTER}>to Counter</Link>
+          </div>
+          <div>
+            <Link to={routes.STOCK}> to STOCKS</Link>
+          </div>
+        </div>
       </div>
     );
   }
