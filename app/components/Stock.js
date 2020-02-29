@@ -1,8 +1,10 @@
-import React, { Component } from "react";
-// import axes from "../actions/chart";
+import React, { Component } from 'react';
+import { Chart } from 'react-charts';
+import axes from '../actions/chart';
 
 type Props = {
-  gotPrices: () => void
+  gotPrices: () => void,
+  price: array
 };
 
 export default class Stock extends Component<Props> {
@@ -19,7 +21,7 @@ export default class Stock extends Component<Props> {
   }
 
   render() {
-    console.log(this.props);
+    const { price } = this.props;
     return (
       <div>
         <div>
@@ -27,14 +29,23 @@ export default class Stock extends Component<Props> {
             <input name="quote" />
           </form>
         </div>
-        {/* <div
+
+        <div
           style={{
-            width: "400px",
-            height: "300px"
+            width: '1400px',
+            height: '800px'
           }}
         >
-          <Chart data={data} axes={axes} />
-        </div> */}
+          <Chart
+            data={[
+              {
+                label: 'Series 1',
+                data: price
+              }
+            ]}
+            axes={axes}
+          />
+        </div>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import Stock from '../components/Stock';
 import getPrices from '../actions/stock';
 
 const mapStateToProps = state => ({
-  state
+  price: state.stock
 });
 
 function mapDispatchToProps(dispatch) {

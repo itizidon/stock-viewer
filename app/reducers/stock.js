@@ -9,10 +9,7 @@ export const stockPrice = (prices: string) => ({
 });
 
 // reducer
-export default function currentStock(
-  defaultPrice: string = [],
-  action: Action
-) {
+export default function currentStock(defaultPrice: Array = [], action: Action) {
   switch (action.type) {
     case STOCKPRICE:
       return action.prices;
