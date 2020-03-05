@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    gotPrices: quote => dispatch(getPrices(quote))
+    gotPrices: (quote, days) => dispatch(getPrices(quote, days))
   };
 }
 

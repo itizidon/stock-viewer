@@ -1,0 +1,14 @@
+.defaultStyle {
+  display: flex;
+  flex-direction: column;
+}
+
+.formStyle {
+  display: flex;
+  justify-content: center;
+}
+
+.chartStyle {
+  display: flex;
+  justify-content: center;
+}
