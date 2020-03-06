@@ -3,7 +3,8 @@ import Stock from '../components/Stock';
 import getPrices from '../actions/stock';
 
 const mapStateToProps = state => ({
-  price: state.stock
+  price: state.stock,
+  bollingerBandsData: state.bollingerBandsData
 });
 
 function mapDispatchToProps(dispatch) {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import { Chart } from 'react-charts';
 import axes from '../actions/chart';
@@ -17,11 +18,13 @@ export default class Stock extends Component<Props> {
   }
 
   submitHandler(event) {
+    event.preventDefault();
     const { gotPrices } = this.props;
     gotPrices(event.target.quote.value, event.target.days.value);
   }
 
   render() {
+    console.log(this.props);
     const { price } = this.props;
     return (
       <div className={styles.defaultStyle} data-tid="defaultStyle">

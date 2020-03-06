@@ -1,6 +1,11 @@
 import axios from 'axios';
 import type { Dispatch } from '../reducers/types';
-import { stockPrice } from '../reducers/stock';
+import { stockPrice, bollingerBands } from '../reducers/stock';
+
+// export function bollingerBandsCalc(data) {
+//   let simpleMovingAverage = [];
+//   // for(let x = 0; )
+// }
 
 export default function getPrices(quote, days) {
   return async (dispatch: Dispatch) => {
@@ -9,12 +14,18 @@ export default function getPrices(quote, days) {
     );
     const arrData = [];
     const dataKeys = Object.keys(data['Time Series (Daily)']);
-    for (let lengtOfChart = days; lengtOfChart > 0; lengtOfChart -= 1) {
-      const dataPoints = [];
-      dataPoints[0] = new Date(dataKeys[lengtOfChart]);
-      dataPoints[1] = data['Time Series (Daily)'][dataKeys[lengtOfChart]]['4. close'];
+    for (
+      let lengtOfChart = Number(days) + 19;
+      lengtOfChart >= 0;
+      lengtOfChart -= 1
+    ) {
+      const dataPoints = [
+        new Date(`${dataKeys[lengtOfChart]} 00:00`),
+        data['Time Series (Daily)'][dataKeys[lengtOfChart]]['4. close']
+      ];
       arrData.push(dataPoints);
     }
-    dispatch(stockPrice(arrData));
+    dispatch(stockPrice(arrData.slice(20, days + 19)));
+    dispatch(bollingerBands(arrData));
   };
 }
