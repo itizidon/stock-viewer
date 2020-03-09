@@ -5,7 +5,9 @@ import axes from '../actions/chart';
 import styles from './Stock.css';
 
 type Props = {
-  gotPrices: () => void,
+  gotPrices: func,
+  bollingerBandsCalc: func,
+  bollingerBandsData: object,
   price: array
 };
 
@@ -15,6 +17,7 @@ export default class Stock extends Component<Props> {
   constructor() {
     super();
     this.submitHandler = this.submitHandler.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   submitHandler(event) {
@@ -23,8 +26,12 @@ export default class Stock extends Component<Props> {
     gotPrices(event.target.quote.value, event.target.days.value);
   }
 
+  clickHandler() {
+    const { bollingerBandsCalc, bollingerBandsData } = this.props;
+    bollingerBandsCalc(bollingerBandsData);
+  }
+
   render() {
-    console.log(this.props);
     const { price } = this.props;
     return (
       <div className={styles.defaultStyle} data-tid="defaultStyle">
@@ -48,16 +55,13 @@ export default class Stock extends Component<Props> {
               height: '800px'
             }}
           >
-            <Chart
-              data={[
-                {
-                  label: 'Series 1',
-                  data: price
-                }
-              ]}
-              axes={axes}
-            />
+            <Chart data={price} axes={axes} />
           </div>
+        </div>
+        <div>
+          <button type="button" onClick={() => this.clickHandler()}>
+            Add BollingerBands
+          </button>
         </div>
       </div>
     );

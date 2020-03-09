@@ -5,7 +5,7 @@ export const BOLLINGERBANDS = 'BOLLINGERBANDS';
 export const BOLLINGERBANDSANDPRICE = 'BOLLINGERBANDSANDPRICE';
 
 // action creator
-export const stockPrice = (prices: string) => ({
+export const stockPrice = (prices: array) => ({
   type: STOCKPRICE,
   prices
 });
@@ -16,7 +16,10 @@ export const bollingerBands = bands => ({
 });
 // reducer
 
-export const bollingerBandsOn = (defaultBands: Array = [], action: Action) => {
+export const bollingerBandsOn = (
+  defaultBands: object = { arrData: [], days: 0 },
+  action: Action
+) => {
   switch (action.type) {
     case BOLLINGERBANDS:
       return action.bands;
