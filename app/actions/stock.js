@@ -1,7 +1,29 @@
 import axios from 'axios';
 import { std } from 'mathjs';
 import type { Dispatch } from '../reducers/types';
-import { stockPrice, bollingerBands } from '../reducers/stock';
+import {
+  stockPrice,
+  bollingerBands,
+  bollingerBandsWidth,
+  bollingerBandWidthChartData
+} from '../reducers/stock';
+
+export function bollingerBandsWidthCalc(data) {
+  return (dispatch: Dispatch) => {
+    const bbw = [];
+    for (let x = 0; x < data.upperBand.length; x += 1) {
+      bbw.push([
+        data.dataWithBands[x][0],
+        (data.upperBand[x][1] - data.lowerBand[x][1]) / data.dataWithBands[x][1]
+      ]);
+    }
+    dispatch(
+      bollingerBandWidthChartData([
+        { label: 'Bollinger Band Width', data: bbw }
+      ])
+    );
+  };
+}
 
 export function bollingerBandsCalc(data) {
   return async (dispatch: Dispatch) => {
@@ -35,6 +57,7 @@ export function bollingerBandsCalc(data) {
         { label: 'Lower Band', data: lowerBand }
       ])
     );
+    dispatch(bollingerBandsWidth({ upperBand, lowerBand, dataWithBands }));
   };
 }
 

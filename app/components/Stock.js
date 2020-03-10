@@ -8,7 +8,10 @@ type Props = {
   gotPrices: func,
   bollingerBandsCalc: func,
   bollingerBandsData: object,
-  price: array
+  price: array,
+  bollingerBandsWidth: object,
+  bollingerBandsWidthCalc: func,
+  bbw: array
 };
 
 export default class Stock extends Component<Props> {
@@ -18,6 +21,7 @@ export default class Stock extends Component<Props> {
     super();
     this.submitHandler = this.submitHandler.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
+    this.bollingerWidthHandler = this.bollingerWidthHandler.bind(this);
   }
 
   submitHandler(event) {
@@ -31,8 +35,13 @@ export default class Stock extends Component<Props> {
     bollingerBandsCalc(bollingerBandsData);
   }
 
+  bollingerWidthHandler() {
+    const { bollingerBandsWidth, bollingerBandsWidthCalc } = this.props;
+    bollingerBandsWidthCalc(bollingerBandsWidth);
+  }
+
   render() {
-    const { price } = this.props;
+    const { price, bbw } = this.props;
     return (
       <div className={styles.defaultStyle} data-tid="defaultStyle">
         <div className={styles.formStyle} data-tid="formStyle">
@@ -47,21 +56,35 @@ export default class Stock extends Component<Props> {
             </label>
             <input type="submit" />
           </form>
+          <div>
+            <button type="button" onClick={() => this.clickHandler()}>
+              Add BollingerBands
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={() => this.bollingerWidthHandler()}>
+              Add BollingerBandsWidth
+            </button>
+          </div>
         </div>
         <div className={styles.chartStyle} data-tid="chartStyle">
           <div
             style={{
-              width: '1400px',
-              height: '800px'
+              width: '1200px',
+              height: '600px'
             }}
           >
             <Chart data={price} axes={axes} />
           </div>
-        </div>
-        <div>
-          <button type="button" onClick={() => this.clickHandler()}>
-            Add BollingerBands
-          </button>
+          <div
+            style={{
+              width: '1200px',
+              height: '300px'
+            }}
+          >
+            <Chart data={bbw} axes={axes} />
+            Bollinger Bands Width
+          </div>
         </div>
       </div>
     );

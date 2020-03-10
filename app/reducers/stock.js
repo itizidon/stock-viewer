@@ -3,6 +3,8 @@ import type { Action } from './types';
 export const STOCKPRICE = 'STOCKPRICE';
 export const BOLLINGERBANDS = 'BOLLINGERBANDS';
 export const BOLLINGERBANDSANDPRICE = 'BOLLINGERBANDSANDPRICE';
+const BOLLINGERBANDSWIDTH = 'BOLLINGERBANDSWIDTH';
+const BOLLINGERBANDSWIDTHCHART = 'BOLLINGERBANDSWIDTHCHART';
 
 // action creator
 export const stockPrice = (prices: array) => ({
@@ -14,7 +16,29 @@ export const bollingerBands = bands => ({
   type: BOLLINGERBANDS,
   bands
 });
+
+export const bollingerBandsWidth = bandWidth => ({
+  type: BOLLINGERBANDSWIDTH,
+  bandWidth
+});
+
+export const bollingerBandWidthChartData = chartData => ({
+  type: BOLLINGERBANDSWIDTHCHART,
+  chartData
+});
 // reducer
+
+export const bollingerBandsWidthStore = (
+  defaultwidth: object = { upperBand: [], lowerBand: [], dataWithBands: [] },
+  action: Action
+) => {
+  switch (action.type) {
+    case BOLLINGERBANDSWIDTH:
+      return action.bandWidth;
+    default:
+      return defaultwidth;
+  }
+};
 
 export const bollingerBandsOn = (
   defaultBands: object = { arrData: [], days: 0 },
@@ -25,6 +49,18 @@ export const bollingerBandsOn = (
       return action.bands;
     default:
       return defaultBands;
+  }
+};
+
+export const bollingerBandWidthChart = (
+  defaultbbwChart: array = [],
+  action: Action
+) => {
+  switch (action.type) {
+    case BOLLINGERBANDSWIDTHCHART:
+      return action.chartData;
+    default:
+      return defaultbbwChart;
   }
 };
 
