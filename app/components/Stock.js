@@ -9,8 +9,6 @@ type Props = {
   bollingerBandsCalc: func,
   bollingerBandsData: object,
   price: array,
-  bollingerBandsWidth: object,
-  bollingerBandsWidthCalc: func,
   bbw: array
 };
 
@@ -21,7 +19,6 @@ export default class Stock extends Component<Props> {
     super();
     this.submitHandler = this.submitHandler.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
-    this.bollingerWidthHandler = this.bollingerWidthHandler.bind(this);
   }
 
   submitHandler(event) {
@@ -33,11 +30,6 @@ export default class Stock extends Component<Props> {
   clickHandler() {
     const { bollingerBandsCalc, bollingerBandsData } = this.props;
     bollingerBandsCalc(bollingerBandsData);
-  }
-
-  bollingerWidthHandler() {
-    const { bollingerBandsWidth, bollingerBandsWidthCalc } = this.props;
-    bollingerBandsWidthCalc(bollingerBandsWidth);
   }
 
   render() {
@@ -59,11 +51,6 @@ export default class Stock extends Component<Props> {
           <div>
             <button type="button" onClick={() => this.clickHandler()}>
               Add BollingerBands
-            </button>
-          </div>
-          <div>
-            <button type="button" onClick={() => this.bollingerWidthHandler()}>
-              Add BollingerBandsWidth
             </button>
           </div>
         </div>

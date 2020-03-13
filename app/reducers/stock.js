@@ -28,18 +28,6 @@ export const bollingerBandWidthChartData = chartData => ({
 });
 // reducer
 
-export const bollingerBandsWidthStore = (
-  defaultwidth: object = { upperBand: [], lowerBand: [], dataWithBands: [] },
-  action: Action
-) => {
-  switch (action.type) {
-    case BOLLINGERBANDSWIDTH:
-      return action.bandWidth;
-    default:
-      return defaultwidth;
-  }
-};
-
 export const bollingerBandsOn = (
   defaultBands: object = { arrData: [], days: 0 },
   action: Action

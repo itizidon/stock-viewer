@@ -9,20 +9,14 @@ import {
 } from '../reducers/stock';
 
 export function bollingerBandsWidthCalc(data) {
-  return (dispatch: Dispatch) => {
-    const bbw = [];
-    for (let x = 0; x < data.upperBand.length; x += 1) {
-      bbw.push([
-        data.dataWithBands[x][0],
-        (data.upperBand[x][1] - data.lowerBand[x][1]) / data.dataWithBands[x][1]
-      ]);
-    }
-    dispatch(
-      bollingerBandWidthChartData([
-        { label: 'Bollinger Band Width', data: bbw }
-      ])
-    );
-  };
+  const bbw = [];
+  for (let x = 0; x < data.upperBand.length; x += 1) {
+    bbw.push([
+      data.dataWithBands[x][0],
+      (data.upperBand[x][1] - data.lowerBand[x][1]) / data.dataWithBands[x][1]
+    ]);
+  }
+  return bbw;
 }
 
 export function bollingerBandsCalc(data) {
@@ -43,6 +37,11 @@ export function bollingerBandsCalc(data) {
       lowerBand.push([data.arrData[x][0], sum / 20 - standardDeviation * 2]);
       dataWithBands.push([data.arrData[x][0], sum / 20]);
     }
+    const bands = bollingerBandsWidthCalc({
+      upperBand,
+      lowerBand,
+      dataWithBands
+    });
     dispatch(
       stockPrice([
         { label: 'Series 1', data: data.arrData.slice(20, days + 20) },
@@ -58,6 +57,11 @@ export function bollingerBandsCalc(data) {
       ])
     );
     dispatch(bollingerBandsWidth({ upperBand, lowerBand, dataWithBands }));
+    dispatch(
+      bollingerBandWidthChartData([
+        { label: 'Bollinger Band Width', data: bands }
+      ])
+    );
   };
 }
 

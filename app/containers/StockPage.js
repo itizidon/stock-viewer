@@ -8,7 +8,6 @@ import getPrices, {
 const mapStateToProps = state => ({
   price: state.stock,
   bollingerBandsData: state.bollingerBandsData,
-  bollingerBandsWidth: state.bollingerBandsWidthStore,
   bbw: state.bollingerBandWidthChart
 });
 
